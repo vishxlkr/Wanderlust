@@ -5,7 +5,10 @@ const methodOverride = require("method-override");
 const engine = require("ejs-mate");
 const listingsRouter = require("./routes/listing.js");
 const reviewsRouter = require("./routes/review.js");
+
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
+
 const flash = require("connect-flash");
 const userRouter = require("./routes/user.js");
 const passport = require("passport");
@@ -23,10 +26,10 @@ app.use(methodOverride("_method"));
 app.engine("ejs", engine);
 app.use(express.static(path.join(__dirname, "/public")));
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
-// const MONGO_URL = process.env.MONGO_URL;
+// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const databaseURL = process.env.MONGODB_URI;
 async function main() {
-   await mongoose.connect(MONGO_URL);
+   await mongoose.connect(databaseURL);
 }
 
 main()
@@ -37,12 +40,21 @@ main()
       console.log(err);
    });
 
-app.get("/", (req, res) => {
-   res.redirect("/listings");
+const store = MongoStore.create({
+   mongoUrl: databaseURL,
+   crypto: {
+      secret: "mysupersecret",
+   },
+   touchAfter: 24 * 3600,
+});
+
+store.on("error", () => {
+   console.log("ERROR in MONGO SESSION STORE", err);
 });
 
 //sessions
 const sessionOptions = {
+   store,
    secret: "thisismysecretcode",
    resave: false,
    saveUninitialized: true,
@@ -73,6 +85,10 @@ app.use((req, res, next) => {
 });
 ////////////////////////////////////////////////////////////////
 //routes
+
+app.get("/", (req, res) => {
+   res.redirect("/listings");
+});
 
 app.get("/demouser", async (req, res) => {
    let fakeuser = new User({
