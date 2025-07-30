@@ -55,7 +55,7 @@ store.on("error", () => {
 //sessions
 const sessionOptions = {
    store,
-   secret: "thisismysecretcode",
+   secret: process.env.SECRET,
    resave: false,
    saveUninitialized: true,
    cookie: {
