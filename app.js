@@ -8,12 +8,10 @@ const reviewsRouter = require("./routes/review.js");
 const session = require("express-session");
 const flash = require("connect-flash");
 const userRouter = require("./routes/user.js");
-
 const passport = require("passport");
-
 const LocalStrategy = require("passport-local");
-
 const User = require("./models/user.js");
+require("dotenv").config();
 
 const app = express();
 const PORT = 3000;
@@ -26,32 +24,33 @@ app.engine("ejs", engine);
 app.use(express.static(path.join(__dirname, "/public")));
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+// const MONGO_URL = process.env.MONGO_URL;
 async function main() {
-  await mongoose.connect(MONGO_URL);
+   await mongoose.connect(MONGO_URL);
 }
 
 main()
-  .then(() => {
-    console.log("connected to DB.");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+   .then(() => {
+      console.log("connected to DB.");
+   })
+   .catch((err) => {
+      console.log(err);
+   });
 
 app.get("/", (req, res) => {
-  res.send("this is root");
+   res.redirect("/listings");
 });
 
 //sessions
 const sessionOptions = {
-  secret: "thisismysecretcode",
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-    maxAge: 1000 * 60 * 60 * 24 * 7,
-    httpOnly: true,
-  },
+   secret: "thisismysecretcode",
+   resave: false,
+   saveUninitialized: true,
+   cookie: {
+      expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+   },
 };
 
 app.use(session(sessionOptions));
@@ -66,23 +65,23 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
-  res.locals.success = req.flash("success");
-  res.locals.error = req.flash("error");
-  res.locals.currUser = req.user;
+   res.locals.success = req.flash("success");
+   res.locals.error = req.flash("error");
+   res.locals.currUser = req.user;
 
-  next();
+   next();
 });
 ////////////////////////////////////////////////////////////////
 //routes
 
 app.get("/demouser", async (req, res) => {
-  let fakeuser = new User({
-    email: "vishal@gmail.com",
-    username: "vishal",
-  });
+   let fakeuser = new User({
+      email: "vishal@gmail.com",
+      username: "vishal",
+   });
 
-  let registeredUser = await User.register(fakeuser, "helloworld");
-  res.send(registeredUser);
+   let registeredUser = await User.register(fakeuser, "helloworld");
+   res.send(registeredUser);
 });
 
 app.use("/listings", listingsRouter);
@@ -91,16 +90,16 @@ app.use("/", userRouter);
 
 //if new route is entered and does not matches the abobe routes
 app.all("*", (req, res, next) => {
-  next(new ExpressError(404, "Page Not Found"));
+   next(new ExpressError(404, "Page Not Found"));
 });
 
 //error handling middleware
 app.use((err, req, res, next) => {
-  const { status = 500, message = "Something went wrong" } = err;
-  res.render("error.ejs", { message });
-  //   res.status(status).send(message);
+   const { status = 500, message = "Something went wrong" } = err;
+   res.render("error.ejs", { message });
+   //   res.status(status).send(message);
 });
 
 app.listen(PORT, () => {
-  console.log(`listening to port ${PORT}.`);
+   console.log(`listening to port ${PORT}.`);
 });
