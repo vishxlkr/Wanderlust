@@ -14,7 +14,7 @@ Wanderlust is a **full‑stack travel listing web application** inspired by Airb
 
 ---
 
-## 📦 Features
+## 📦 Features 
 
 -  ✅ User Registration & Login with Passport.js
 -  ✅ Create, Update & Delete travel listings
