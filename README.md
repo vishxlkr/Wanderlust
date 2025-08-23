@@ -150,13 +150,14 @@ GET     /logout            # Logout user
 
 ## 📷 Screenshots
 
-_Add screenshots of your app UI here — e.g., homepage, listing details, login/register pages, etc._
+<img width="1904" height="1057" alt="Screenshot 2025-08-23 130408" src="https://github.com/user-attachments/assets/ba3e17bf-0d84-4432-b758-e31588ad6d5d" />
+<img width="1900" height="904" alt="Screenshot 2025-08-23 130457" src="https://github.com/user-attachments/assets/c0b6c6ef-4e1d-4345-be2e-5828ef12dfd4" />
+<img width="1892" height="679" alt="Screenshot 2025-08-23 130543" src="https://github.com/user-attachments/assets/5e48146d-1059-4efa-9bfb-0b30ba8771c1" />
+<img width="1919" height="1079" alt="Screenshot 2025-08-23 130346" src="https://github.com/user-attachments/assets/fc0dfa60-1a51-4bb3-9596-5569b107b453" />
+<img width="1919" height="1079" alt="Screenshot 2025-08-23 130607" src="https://github.com/user-attachments/assets/4184c331-94bc-4d19-9184-f5c3699edc84" />
+<img width="1919" height="1079" alt="Screenshot 2025-08-23 130633" src="https://github.com/user-attachments/assets/3b195c86-1f13-4a73-9bb4-eb93bfdedd65" />
+<img width="1919" height="1079" alt="Screenshot 2025-08-23 130641" src="https://github.com/user-attachments/assets/2ee65a03-0e16-4f3c-b128-476cac8203f3" />
 
-```markdown
-![Homepage Screenshot](./public/images/homepage.png)
-```
-
-> Ensure the `public/images/homepage.png` file exists in your repo so the preview renders correctly.
 
 ---
 
