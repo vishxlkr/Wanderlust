@@ -41,12 +41,7 @@ Keywords: "MVC", "RESTful API", "Authentication", "CRUD", "Schema", "Middleware"
 Numbers: Recruiters look for numbers. Even if you don't have users, "15+ endpoints" or "3 schemas" shows complexity.
 Action Verbs: "Architected", "Engineered", "Implemented" are stronger than "Used" or "Made".
 
-
-
-
 <!-- notes . md start from here -->
-
-
 
 ✈️ Wanderlust App - API & Data Flow Notes
 This document outlines the end-to-end data flow for the core features of the Wanderlust application, detailing client-side actions, backend routes, and database interactions based on the provided source code.
